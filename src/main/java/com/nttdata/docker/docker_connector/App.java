@@ -23,8 +23,7 @@ public class App {
 
 		System.out.println(clientBuilder.listContainersCmd().exec());
 
-//		System.out.println(clientBuilder.);
-		
+		// System.out.println(clientBuilder.);
 
 	}
 }
