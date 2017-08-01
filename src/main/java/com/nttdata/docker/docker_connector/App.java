@@ -1,7 +1,10 @@
 package com.nttdata.docker.docker_connector;
 
+import java.io.File;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.AsyncDockerCmd;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
@@ -12,16 +15,32 @@ import com.github.dockerjava.core.DockerClientConfig;
  */
 public class App {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
-		// DockerClientConfig config =
-		// DefaultDockerClientConfig.createDefaultConfigBuilder()
-		// .withDockerHost("tcp://localhost:2375").build();
+		// DockerClient clientBuilder =
+		// DockerClientBuilder.getInstance("tcp://192.168.99.100:2376")
+		//
+		//
+		// .build();
+		// AuthConfig config=
 
-		DockerClient clientBuilder = DockerClientBuilder.getInstance("tcp://localhost:4243").build();
+		final String certPath = StringUtils
+				.join(new String[] { System.getProperty("user.home"), ".docker", "machine", "machines", "default"
 
-		System.out.println("Docker Info Command " + clientBuilder.infoCmd().exec());
+		}, File.separatorChar);
 
-		System.out.println(clientBuilder.listContainersCmd().exec());
+		DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
+				.withDockerHost("tcp://192.168.99.100:2376").withDockerTlsVerify(true).withDockerCertPath(certPath)
+				// .withRegistryUsername(registryUser)
+				// .withRegistryPassword(registryPass)
+				// .withRegistryEmail(registryMail)
+				// .withRegistryUrl(registryUrl)
+				.build();
+
+		DockerClient client = DockerClientBuilder.getInstance(config).build();
+
+		System.out.println("Docker Info Command " + client.infoCmd().exec());
+
+		System.out.println(client.listContainersCmd().exec());
+		System.out.println(client.listImagesCmd().exec());
 
 		// System.out.println(clientBuilder.);
 
