@@ -22,16 +22,16 @@ import com.github.dockerjava.core.command.BuildImageResultCallback;
  */
 public class App {
 	public static void main(String[] args) {
-		final String certPath = StringUtils
-				.join(new String[] { System.getProperty("user.home"), ".docker", "machine", "machines", "default"
-
-		}, File.separatorChar);
+		final String certPath = StringUtils.join(
+				new String[] { System.getProperty("user.home"), ".docker", "machine", "machines", "default" },
+				File.separatorChar);
 
 		DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
-				.withDockerHost("tcp://192.168.99.100:2376").withDockerTlsVerify(true).withDockerCertPath(certPath)
-				// .withRegistryUsername(registryUser)
-				// .withRegistryPassword(registryPass)
-				// .withRegistryEmail(registryMail)
+				// .withDockerHost("tcp://192.168.99.100:2376").withDockerTlsVerify(true)
+				.withDockerCertPath(certPath)
+				// .withRegistryEmail(registryEmail)
+				// .withRegistryPassword("WHY_IS_MY_PWD_IN_PLAIN")
+				// .withRegistryEmail("alex.ciocan.lx@gmail.com")
 				// .withRegistryUrl(registryUrl)
 				.build();
 
